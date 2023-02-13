@@ -24,11 +24,12 @@ function Home() {
       }
     }
 
+    window.scrollTo(0, 0);
     fetchData();
   }, []);
 
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -39,7 +40,7 @@ function Home() {
           ? [...new Array(6)].map((_, i) => <Loader key={i} />)
           : pizzas.map((pizza, i) => <PizzaBlock key={i} {...pizza} />)}
       </div>
-    </>
+    </div>
   );
 }
 
