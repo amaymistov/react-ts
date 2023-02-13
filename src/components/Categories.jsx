@@ -19,10 +19,11 @@ function Categories() {
   return (
     <div className="categories">
       <ul>
-        {categories.map((value, index) => (
+        {categories.map((value, i) => (
           <li
-            onClick={() => onClickCategory(index)}
-            className={active === index ? "active" : ""}
+            key={i}
+            onClick={() => onClickCategory(i)}
+            className={active === i ? "active" : ""}
           >
             {value}
           </li>
