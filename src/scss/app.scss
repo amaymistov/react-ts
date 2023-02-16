@@ -20,7 +20,7 @@ body {
 }
 
 .content {
-  padding: 0  0 40px;
+  padding: 0 0 40px;
 
   &__title {
     font-size: 38px;
@@ -82,7 +82,7 @@ body {
     align-items: center;
   }
 
-  .content__items{
+  .content__items {
     display: block;
   }
 
@@ -339,6 +339,35 @@ body {
       margin: 0 auto;
       font-weight: 600;
       font-size: 18px;
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #fe5f1e;
+    border-radius: 30px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #fe5f1e;
+      color: #fff;
+    }
+  }
+
+  .selected {
+    a {
+      background-color: #fe5f1e;
+      color: #fff;
     }
   }
 }
