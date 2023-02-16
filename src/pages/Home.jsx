@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import Loader from "../components/Loader";
 import PizzaBlock from "../components/PizzaBlock";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
+import { AppContext } from "../App";
 
-function Home({ searchValue }) {
+function Home() {
+  const { searchValue } = useContext(AppContext);
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [categoryId, setCategoryId] = useState(0);

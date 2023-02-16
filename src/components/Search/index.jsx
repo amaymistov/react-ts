@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./Search.module.scss";
 import CustomDiv from "../CustomDiv";
 import searchIcon from "../../assets/img/search.svg";
 import closeIcon from "../../assets/img/close.svg";
+import { AppContext } from "../../App";
 
-function Search({ searchValue, setSearchValue }) {
+function Search() {
+  const { searchValue, setSearchValue } = useContext(AppContext);
   return (
     <CustomDiv className={styles.root}>
       <img className={styles.icon} src={searchIcon} alt="search" />
