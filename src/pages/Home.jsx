@@ -34,11 +34,14 @@ function Home() {
       const search = searchValue ? `&search=${searchValue}` : "";
 
       try {
-        const pizzasResponse = await axios.get(
-          `${urlItems}${category}&sortBy=${sortType}&order=${order}${search}`
-        );
-        setPizzas(pizzasResponse.data);
-        setIsLoading(false);
+        await axios
+          .get(
+            `${urlItems}${category}&sortBy=${sortType}&order=${order}${search}`
+          )
+          .then((res) => {
+            setPizzas(res.data);
+            setIsLoading(false);
+          });
       } catch (error) {
         alert("Ошибка при запросе");
         console.error(error);
