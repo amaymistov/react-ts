@@ -14,7 +14,7 @@ import {
   setCurrentPage,
   setFilters,
 } from "../redux/slice/filterSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { fetchPizzas, selectPizzaData } from "../redux/slice/pizzaSlice";
 import CustomDiv from "../components/CustomDiv";
 
@@ -24,12 +24,13 @@ function Home() {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
+  const searchParams = useLocation();
+
   const { items, status } = useSelector(selectPizzaData);
   const { categoryId, sort, currentPage, searchValue } =
     useSelector(selectFilter);
 
   const onChangeCategory = (id) => {
-    console.log(id);
     dispatch(setCategoryId(id));
   };
 
@@ -60,8 +61,8 @@ function Home() {
   }, [categoryId, sort.sort, currentPage]);
 
   useEffect(() => {
-    if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
+    if (searchParams.search) {
+      const params = qs.parse(searchParams.search.substring(1));
       const sort = sortList.find((obj) => obj.sort === params.sortProperty);
       dispatch(
         setFilters({
@@ -79,6 +80,7 @@ function Home() {
     isSearch.current = false;
   }, [categoryId, sort.sort, searchValue, currentPage]);
   // [categoryId, sort.sort, searchValue, currentPage])
+
   return (
     <div className="container">
       <div className="content__top">
