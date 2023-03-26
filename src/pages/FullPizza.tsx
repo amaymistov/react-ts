@@ -4,8 +4,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from "../components/Loader";
 
-function FullPizza() {
-  const [pizza, setPizza] = useState();
+interface pizza {
+  imageUrl: string;
+  title: string;
+  description: string;
+  price: number;
+}
+
+function FullPizza(): JSX.Element {
+  const [pizza, setPizza] = useState<pizza>();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -21,8 +28,9 @@ function FullPizza() {
         navigate("/");
       }
     }
+
     fetchPizza();
-  }, []);
+  });
 
   if (!pizza) {
     return (
@@ -39,7 +47,7 @@ function FullPizza() {
       width="90%"
       margin="0 auto"
     >
-      <img src={pizza.imageUrl} alt={"Пицца" + " " + pizza.title} />
+      <img src={pizza.imageUrl} alt={"Пицца " + pizza.title} />
       <h2>{pizza.title}</h2>
       <p>{pizza.description}</p>
       <h4>от {pizza.price}₽</h4>
