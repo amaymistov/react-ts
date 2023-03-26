@@ -1,4 +1,8 @@
-function Categories({ value, onChange }) {
+type CategoriesProps = {
+  value: number;
+  onChange: any;
+};
+function Categories({ value, onChange }: CategoriesProps) {
   const categories = [
     "Все",
     "Мясные",

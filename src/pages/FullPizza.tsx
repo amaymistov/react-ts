@@ -4,15 +4,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from "../components/Loader";
 
-interface pizza {
+type PizzaItem = {
   imageUrl: string;
   title: string;
   description: string;
   price: number;
-}
+};
 
 function FullPizza(): JSX.Element {
-  const [pizza, setPizza] = useState<pizza>();
+  const [pizza, setPizza] = useState<PizzaItem>();
   const { id } = useParams();
   const navigate = useNavigate();
 

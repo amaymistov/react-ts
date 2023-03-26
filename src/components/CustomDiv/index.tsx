@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from "react";
 import cn from "classnames";
 import useStyles from "./styles";
 
-interface OuterProps {
+type OuterProps = {
   onClick?: MouseEventHandler<HTMLDivElement>;
   color?: string;
   children?: any;
@@ -58,7 +58,7 @@ interface OuterProps {
 
   border?: number | string;
   borderRadius?: number | string;
-}
+};
 
 function CustomDiv({
   children,

@@ -30,12 +30,12 @@ function Home() {
   const { categoryId, sort, currentPage, searchValue } =
     useSelector(selectFilter);
 
-  const onChangeCategory = (id) => {
+  const onChangeCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (value: number) => {
+    dispatch(setCurrentPage(value));
   };
 
   async function getPizzas() {
@@ -45,6 +45,7 @@ function Home() {
     const order = sort.sort.includes("-") ? "asc" : "desc";
     const search = searchValue ? `&search=${searchValue}` : "";
 
+    // @ts-ignore
     dispatch(fetchPizzas({ urlItems, category, sortType, order, search }));
   }
 
@@ -106,7 +107,7 @@ function Home() {
         <div className="content__items">
           {status === "loading"
             ? [...new Array(6)].map((_, i) => <Loader key={i} />)
-            : items.map((pizza, i) => <PizzaBlock key={i} {...pizza} />)}
+            : items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)}
         </div>
       )}
       <ReactPaginate
@@ -118,7 +119,6 @@ function Home() {
         pageRangeDisplayed={4}
         pageCount={3}
         forcePage={currentPage - 1}
-        renderOnZeroPageCount={null}
       />
     </div>
   );
