@@ -1,11 +1,11 @@
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, ReactNode } from "react";
 import cn from "classnames";
 import useStyles from "./styles";
 
 type OuterProps = {
   onClick?: MouseEventHandler<HTMLDivElement>;
   color?: string;
-  children?: any;
+  children?: ReactNode;
 
   hide?: boolean;
 

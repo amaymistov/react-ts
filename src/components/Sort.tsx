@@ -29,9 +29,8 @@ function Sort() {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      const composed = event.composedPath().includes(sortRef.current);
-      if (!composed) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setOpenPopUp(false);
       }
     };
