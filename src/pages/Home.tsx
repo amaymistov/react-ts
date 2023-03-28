@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Categories from "../components/Categories";
 import Sort, { sortList } from "../components/Sort";
@@ -9,18 +9,24 @@ import PizzaBlock from "../components/PizzaBlock";
 import ReactPaginate from "react-paginate";
 import qs from "qs";
 import {
+  FilterSliceState,
   selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
 } from "../redux/slice/filterSlice";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fetchPizzas, selectPizzaData } from "../redux/slice/pizzaSlice";
+import {
+  fetchPizzas,
+  selectPizzaData,
+  Status,
+} from "../redux/slice/pizzaSlice";
 import CustomDiv from "../components/CustomDiv";
+import { useAppDispatch } from "../redux/store";
 
 function Home() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
@@ -45,7 +51,6 @@ function Home() {
     const order = sort.sort.includes("-") ? "asc" : "desc";
     const search = searchValue ? `&search=${searchValue}` : "";
 
-    // @ts-ignore
     dispatch(fetchPizzas({ urlItems, category, sortType, order, search }));
   }
 
@@ -69,11 +74,11 @@ function Home() {
         setFilters({
           ...params,
           sort,
-        })
+        } as FilterSliceState)
       );
       isSearch.current = true;
     }
-  }, []);
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -105,7 +110,7 @@ function Home() {
         </CustomDiv>
       ) : (
         <div className="content__items">
-          {status === "loading"
+          {status === Status.LOADING
             ? [...new Array(6)].map((_, i) => <Loader key={i} />)
             : items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)}
         </div>
