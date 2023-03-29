@@ -1,8 +1,10 @@
+import React from "react";
+
 type CategoriesProps = {
   value: number;
   onChange: (i: number) => void;
 };
-function Categories({ value, onChange }: CategoriesProps) {
+const Categories = React.memo(({ value, onChange }: CategoriesProps) => {
   const categories = [
     "Все",
     "Мясные",
@@ -27,6 +29,6 @@ function Categories({ value, onChange }: CategoriesProps) {
       </ul>
     </div>
   );
-}
+});
 
 export default Categories;

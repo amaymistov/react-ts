@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-  selectSort,
+  Sort as SortType,
   setSort,
   SortPropertyEnum,
 } from "../redux/slice/filterSlice";
@@ -20,9 +20,12 @@ export const sortList: SortListProps[] = [
   { name: "алфавиту(ASK)", sort: SortPropertyEnum.PRICE_ASC },
 ];
 
-function Sort() {
+type SortProp = {
+  value: SortType;
+};
+
+const Sort = React.memo(({ value }: SortProp) => {
   const dispatch = useDispatch();
-  const sort = useSelector(selectSort);
   const sortRef = useRef<HTMLDivElement>(null);
 
   const [openPopUp, setOpenPopUp] = useState(false);
@@ -59,7 +62,7 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpenPopUp(!openPopUp)}>{sort.name}</span>
+        <span onClick={() => setOpenPopUp(!openPopUp)}>{value.name}</span>
       </div>
       {openPopUp && (
         <div className="sort__popup">
@@ -67,7 +70,7 @@ function Sort() {
             <ul key={i}>
               <li
                 onClick={() => onClickSortItem(obj)}
-                className={sort.sort === obj.sort ? "active" : ""}
+                className={value.sort === obj.sort ? "active" : ""}
               >
                 {obj.name}
               </li>
@@ -77,6 +80,5 @@ function Sort() {
       )}
     </div>
   );
-}
-
+});
 export default Sort;
