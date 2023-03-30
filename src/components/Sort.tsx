@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  Sort as SortType,
-  setSort,
-  SortPropertyEnum,
-} from "../redux/slice/filterSlice";
+import { SortPropertyEnum } from "../redux/filter/types";
+import { setSort } from "../redux/filter/slice";
+import { Sort as SortType } from "../redux/filter/types";
 
 type SortListProps = {
   name: string;
@@ -16,8 +14,8 @@ export const sortList: SortListProps[] = [
   { name: "популярности(ASK)", sort: SortPropertyEnum.RATING_ASC },
   { name: "цене(DESK)", sort: SortPropertyEnum.PRICE_DESC },
   { name: "цене(ASK)", sort: SortPropertyEnum.PRICE_ASC },
-  { name: "алфавиту(DESK)", sort: SortPropertyEnum.PRICE_DESC },
-  { name: "алфавиту(ASK)", sort: SortPropertyEnum.PRICE_ASC },
+  { name: "алфавиту(DESK)", sort: SortPropertyEnum.TITLE_DESC },
+  { name: "алфавиту(ASK)", sort: SortPropertyEnum.TITLE_ASC },
 ];
 
 type SortProp = {

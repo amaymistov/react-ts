@@ -8,21 +8,20 @@ import PizzaBlock from "../components/PizzaBlock";
 
 import ReactPaginate from "react-paginate";
 import qs from "qs";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import CustomDiv from "../components/CustomDiv";
+import { useAppDispatch } from "../redux/store";
+import { selectFilter } from "../redux/filter/selectors";
 import {
-  FilterSliceState,
-  selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
-} from "../redux/slice/filterSlice";
-import { useLocation, useNavigate } from "react-router-dom";
-import {
-  fetchPizzas,
-  selectPizzaData,
-  Status,
-} from "../redux/slice/pizzaSlice";
-import CustomDiv from "../components/CustomDiv";
-import { useAppDispatch } from "../redux/store";
+} from "../redux/filter/slice";
+import { FilterSliceState } from "../redux/filter/types";
+import { selectPizzaData } from "../redux/pizza/selectors";
+import { Status } from "../redux/pizza/types";
+import { fetchPizzas } from "../redux/pizza/asyncActions";
 
 function Home() {
   const navigate = useNavigate();
@@ -36,9 +35,12 @@ function Home() {
   const { categoryId, sort, currentPage, searchValue } =
     useSelector(selectFilter);
 
-  const onChangeCategory = useCallback((id: number) => {
-    dispatch(setCategoryId(id));
-  }, []);
+  const onChangeCategory = useCallback(
+    (id: number) => {
+      dispatch(setCategoryId(id));
+    },
+    [dispatch]
+  );
 
   const onChangePage = (value: number) => {
     dispatch(setCurrentPage(value));
@@ -64,7 +66,7 @@ function Home() {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
-  }, [categoryId, sort.sort, currentPage]);
+  }, [categoryId, navigate, sort.sort, currentPage]);
 
   useEffect(() => {
     if (searchParams.search) {
@@ -78,14 +80,13 @@ function Home() {
       );
       isSearch.current = true;
     }
-  });
+  }, [searchParams.search, sort.sort]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     getPizzas();
     isSearch.current = false;
   }, [categoryId, sort.sort, searchValue, currentPage]);
-  // [categoryId, sort.sort, searchValue, currentPage])
 
   return (
     <div className="container">

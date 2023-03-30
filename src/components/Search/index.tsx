@@ -6,7 +6,7 @@ import closeIcon from "../../assets/img/close.svg";
 // @ts-ignore
 import debounce from "lodash.debounce";
 import { useDispatch } from "react-redux";
-import { setSearchValue } from "../../redux/slice/filterSlice";
+import { setSearchValue } from "../../redux/filter/slice";
 
 function Search() {
   const dispatch = useDispatch();
