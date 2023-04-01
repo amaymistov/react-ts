@@ -3,6 +3,7 @@ import CustomDiv from "../components/CustomDiv";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from "../components/Loader";
+import CustomButton from "../components/CustomButton";
 
 type PizzaItem = {
   imageUrl: string;
@@ -30,7 +31,7 @@ function FullPizza(): JSX.Element {
     }
 
     fetchPizza();
-  });
+  }, []);
 
   if (!pizza) {
     return (
@@ -51,6 +52,7 @@ function FullPizza(): JSX.Element {
       <h2>{pizza.title}</h2>
       <p>{pizza.description}</p>
       <h4>от {pizza.price}₽</h4>
+      <CustomButton>Назад</CustomButton>
     </CustomDiv>
   );
 }
